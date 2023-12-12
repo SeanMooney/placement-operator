@@ -811,10 +811,11 @@ func (r *PlacementAPIReconciler) generateServiceConfigMaps(
 	if err != nil {
 		return err
 	}
-	templateParameters := make(map[string]interface{})
-	templateParameters["ServiceUser"] = instance.Spec.ServiceUser
-	templateParameters["KeystoneInternalURL"] = keystoneInternalURL
-	templateParameters["KeystonePublicURL"] = keystonePublicURL
+	templateParameters := map[string]interface{}{
+		"ServiceUser":         instance.Spec.ServiceUser,
+		"KeystoneInternalURL": keystoneInternalURL,
+		"KeystonePublicURL":   keystonePublicURL,
+	}
 
 	cms := []util.Template{
 		// ScriptsConfigMap

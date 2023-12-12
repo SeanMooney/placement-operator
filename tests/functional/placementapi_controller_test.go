@@ -381,6 +381,8 @@ var _ = Describe("PlacementAPI controller", func() {
 			Expect(int(*deployment.Spec.Replicas)).To(Equal(1))
 			Expect(deployment.Spec.Selector.MatchLabels).To(Equal(map[string]string{"service": "placement"}))
 			Expect(deployment.Spec.Template.Spec.ServiceAccountName).To(Equal(names.ServiceAccountName.Name))
+			Expect(len(deployment.Spec.Template.Spec.Containers)).To(Equal(2))
+
 			th.SimulateDeploymentReplicaReady(names.DeploymentName)
 
 			th.ExpectCondition(
